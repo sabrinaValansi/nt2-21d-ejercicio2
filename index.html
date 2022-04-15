@@ -11,23 +11,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
 
 </head>
+<body style="background-color:gainsboro;">
+
+<h1 class="bg-secondary" style="color:white; text-align: center;">TRABAJO PRACTICO N° 2 - SABRINA VALANSI - 2 1 F</h1>
 
 
 <div class="container-fluid mt-3 " id="app">
-    <input type="text" class="form-control" v-model="criterioDeBusqueda"
+    <input type="text" class="form-control" style="background-color:whitesmoke;" v-model="criterioDeBusqueda"
         placeholder="Ingresar un criterio de busqueda...">
     <br>
-    <input type="text" class="form-control" v-model="criterioDeBusqueda1"
+    <input type="text" class="form-control" style="background-color:lightyellow;" v-model="criterioDeBusqueda1"
         placeholder="Ingresar un nombre o apellido a buscar...">
     <br>
-    <input type="number" class="form-control" v-model="criterioDeBusqueda2"
+    <input type="number" class="form-control" style="background-color:beige" v-model="criterioDeBusqueda2"
         placeholder="Ingresar un DNI a buscar...">
     <br><br>
-    <div class="card-deck m-0" v-if="validarDatos()">
+    <div class="card-deck m-4" v-if="validarDatos()">
         <div class="row">
             <div class="col" v-for="persona in personasFiltradas">
-                <div class="card mb-3">
-                    <div class="card-body">
+                <div class="card mb-3" style="width: 265px; height: 150px;">
+                    <div class="card-body mb-3" >
                         <h5 class="card-title">{{getNombreCompleto(persona)}}</h5>
                         <p class="card-text">dni {{persona.dni}}</p>
                         <a href="#" class="card-link">{{persona.correo}}</a>
@@ -77,12 +80,7 @@
                     correo: "julibarrio@gmail.com",
                     dni: "29940215"
                 },
-                {
-                    nombre: "Joaquin",
-                    apellido: "Barrio",
-                    correo: "joacobarrio@yahoo.com",
-                    dni: "53467640"
-                },
+               
             ]
 
         },
@@ -127,3 +125,4 @@
         }
     });
 </script>
+</body>
