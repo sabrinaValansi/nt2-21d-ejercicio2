@@ -13,11 +13,17 @@
 </head>
 
 
-<div class="container-fluid mt-3" id="app">
+<div class="container-fluid mt-3 " id="app">
     <input type="text" class="form-control" v-model="criterioDeBusqueda"
         placeholder="Ingresar un criterio de busqueda...">
     <br>
-    <div class="card-deck m-0">
+    <input type="text" class="form-control" v-model="criterioDeBusqueda1"
+        placeholder="Ingresar un nombre o apellido a buscar...">
+    <br>
+    <input type="number" class="form-control" v-model="criterioDeBusqueda2"
+        placeholder="Ingresar un DNI a buscar...">
+    <br><br>
+    <div class="card-deck m-0" v-if="validarDatos()">
         <div class="row">
             <div class="col" v-for="persona in personasFiltradas">
                 <div class="card mb-3">
@@ -30,8 +36,11 @@
             </div>
         </div>
     </div>
-
+    <div v-else>
+        <p class="alert alert-warning">Debes ingresar por lo menos 3 caracteres</p>
+    </div>
 </div>
+
 
 </html>
 
@@ -40,6 +49,8 @@
         el: '#app',
         data: {
             criterioDeBusqueda: '',
+            criterioDeBusqueda1: '',
+            criterioDeBusqueda2: '',
             //Aquí, en este array es donde tienen que agregar su información
             personas: [
                 {
@@ -49,10 +60,28 @@
                     dni: "20442873"
                 },
                 {
-                    nombre: "...",
-                    apellido: "...",
-                    correo: "...",
-                    dni: "..."
+                    nombre: "Sabrina",
+                    apellido: "Valansi",
+                    correo: "sabrivalan@hotmail.com",
+                    dni: "29950487"
+                },
+                {
+                    nombre: "Julieta",
+                    apellido: "Barrio",
+                    correo: "julibarrio@gmail.com",
+                    dni: "20584930"
+                },
+                {
+                    nombre: "Julieta2",
+                    apellido: "Barrio",
+                    correo: "julibarrio@gmail.com",
+                    dni: "29940215"
+                },
+                {
+                    nombre: "Joaquin",
+                    apellido: "Barrio",
+                    correo: "joacobarrio@yahoo.com",
+                    dni: "53467640"
                 },
             ]
 
@@ -61,13 +90,39 @@
             personasFiltradas() {
                 return this.personas.filter((persona) => {
                     let registroCompleto = `${persona.nombre} ${persona.apellido} ${persona.dni} ${persona.correo}`
-                    return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
+
+                    return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase()) && `${persona.nombre} ${persona.apellido}`.toLowerCase().includes(this.criterioDeBusqueda1.toLowerCase()) && `${persona.dni}`.toLowerCase().includes(this.criterioDeBusqueda2.toLowerCase())  
                 });
-            }
+            },
+            
         },
         methods: {
             getNombreCompleto(persona) {
                 return `${persona.nombre} ${persona.apellido}`
+            },
+
+            validarDatos(){
+            let datos = true;
+            let i=this.validarCaracteres();
+            if(i==1){
+                datos=false;
+            }
+            return datos;
+            },
+
+            validarCaracteres(){
+                let i = 0;
+                let busq=this.criterioDeBusqueda.length;
+                let busq1 =this.criterioDeBusqueda1.length;
+                let busq2= this.criterioDeBusqueda2.length;
+                if(busq>2 || busq1>2 || busq2>2 ){
+                    i=0;
+                }
+                else if((busq>0 && busq <3) || (busq1>0 && busq1 <3) || (busq2>0 && busq2 <3) ){
+                    i=1;
+                }
+               
+                return i;
             }
         }
     });
